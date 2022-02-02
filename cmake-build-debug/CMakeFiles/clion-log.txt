@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2021.3.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2021.3.2/bin/ninja/win/ninja.exe" -G Ninja C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\Assignment_2
+"C:\Program Files\JetBrains\CLion 2021.3.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2"
 -- The C compiler identification is GNU 11.2.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
@@ -7,4 +7,4 @@
 -- Detecting C compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/jj554/Documents/BCIT/CST-Level-2/COMP-2510/Assignment_2/cmake-build-debug
+-- Build files have been written to: D:/BCIT/BCIT Level 2/COMP 2510/Assignment/Assignment_2/cmake-build-debug

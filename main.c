@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <strings.h>
 
+int calcLength(char *arr){
+    return (int)strlen(arr);
+}
+
 // Read from file and dump contents into String Array (dest_array).
 void copyFromFile(FILE *ifptr, char* dest_array){
 
@@ -16,14 +20,8 @@ void copyFromFile(FILE *ifptr, char* dest_array){
     strcpy(dest_array, output);
 }
 
-int main(int argc, char *argv[]) {
-
-    FILE *ifptr = {0};
-    char *output[500];
-
-    // NO OPENING FILE IN MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // NO IF STATEMENT TO CHECK NUMBER OF ARGUMENTS!!!!!!!!!!!
-    // ONLY METHOD CALLS IN MAIN
+// Checks and Opens File
+void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
 
     // Check if one command line argument given.
     if (argc == 2){
@@ -31,26 +29,37 @@ int main(int argc, char *argv[]) {
 
         // Assign FILE.
         ifptr = fopen("input.txt","r");
-
-        // Copy from FILE to Array.
-        copyFromFile(ifptr, (char *) output);
-
-        printf("%s", output);
-
-        for (int x = 0; x < 60; x++){
-            //("|%s|\n", output[x]);
-
-        }
-
-        // Close FILE
-        fclose(ifptr);
+        copyFromFile(ifptr, dest_array);
 
     }
     // More than 1 Argument Given.
     if (argc > 2){
         printf("Error: More than 1 Argument given.\n");
     }
-    printf("\nHello, World!\n");
+
+}
+
+void closeFile(FILE *ifptr){
     fclose(ifptr);
+}
+
+int main(int argc, char *argv[]) {
+
+    // NO OPENING FILE IN MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // NO IF STATEMENT TO CHECK NUMBER OF ARGUMENTS!!!!!!!!!!!
+    // ONLY METHOD CALLS IN MAIN
+
+    FILE *ifptr = {0};
+    char *output[500];
+
+    openFile(ifptr, argc, argv, (char *) output);
+
+    printf("%s", output);
+
+    int x = calcLength((char *) output);
+    printf("%d", x);
+
+    closeFile(ifptr);
+
     return 0;
 }
