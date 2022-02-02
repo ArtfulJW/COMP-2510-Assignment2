@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <strings.h>
 
+#define ROW 100
+#define COL 100
+
 // Calculate Length of String
 int calcLength(char *arr){
     return (int)strlen(arr);
@@ -21,11 +24,40 @@ void copyFromFile(FILE *ifptr, char* dest_array){
     strcpy(dest_array, output);
 }
 
+// Process the words
+void processWords(char *input, int len, char dest_array[ROW][COL]){
+    int wordStart = 0;
+    int numWord = 0;
+
+    for (int i = 0; i <= len; i++){
+        if(input[i] == ' '  || i == len){
+            // Iterate through the word.
+            for (int y = wordStart; y < i; y++){
+                strncat(dest_array[numWord], &input[y],1);
+            }
+            // End of word
+            numWord++;
+            // Preparing for next word
+            wordStart = i+1;
+        }
+    }
+
+    // After Loop, Temp will have all the seperate words
+    int size = sizeof(dest_array[0])/ sizeof(dest_array[0][0]);
+    for (int x = 0 ; x < size; x++){
+        printf("%s ", dest_array[x]);
+    }
+
+}
+
 // Checks and Opens File
 void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
 
     // Check if one command line argument given.
     if (argc == 2){
+
+        char temp[ROW][COL] = {0};
+
         printf("1 Argument Given: [%s]\n", argv[1]);
 
         // Assign FILE.
@@ -43,8 +75,11 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
         int x = calcLength((char *) dest_array);
         printf("Length of String: %d\n", x);
 
+        // Seperate String into Array of Strings. Each index is a word.
+        processWords((char *) dest_array, calcLength((char *) dest_array),temp);
+
         // Close File
-        printf("Closing File...\n");
+        printf("\nClosing File...\n");
         fclose(ifptr);
 
     }

@@ -1,4 +1,4 @@
-# Install script for directory: D:/BCIT/BCIT Level 2/COMP 2510/Assignment/Assignment_2
+# Install script for directory: C:/Users/jj554/Documents/BCIT/CST-Level-2/COMP-2510/COMP-2510-Assignment2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/BCIT/BCIT Level 2/COMP 2510/Assignment/Assignment_2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/jj554/Documents/BCIT/CST-Level-2/COMP-2510/COMP-2510-Assignment2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -53,10 +53,10 @@ RM = "C:\Program Files\JetBrains\CLion 2021.3.2\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2"
+CMAKE_SOURCE_DIR = C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\COMP-2510-Assignment2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2\cmake-build-debug"
+CMAKE_BINARY_DIR = C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\COMP-2510-Assignment2\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/Assignment_2.dir/clean
 CMakeFiles/Assignment_2.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assignment_2.dir\build.make CMakeFiles/Assignment_2.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assignment_2.dir\build.make CMakeFiles/Assignment_2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2\cmake-build-debug\CMakeFiles" --progress-num=1,2 "Built target Assignment_2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\COMP-2510-Assignment2\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target Assignment_2"
 .PHONY : CMakeFiles/Assignment_2.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Assignment_2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2\cmake-build-debug\CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\COMP-2510-Assignment2\cmake-build-debug\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Assignment_2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "D:\BCIT\BCIT Level 2\COMP 2510\Assignment\Assignment_2\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jj554\Documents\BCIT\CST-Level-2\COMP-2510\COMP-2510-Assignment2\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/Assignment_2.dir/rule
 
 # Convenience name for target.
