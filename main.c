@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <strings.h>
 
+// Calculate Length of String
 int calcLength(char *arr){
     return (int)strlen(arr);
 }
@@ -28,19 +29,30 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
         printf("1 Argument Given: [%s]\n", argv[1]);
 
         // Assign FILE.
+        printf("Opening File...\n");
         ifptr = fopen("input.txt","r");
+
+        // Copy File Contents
+        printf("Copying File...\n");
         copyFromFile(ifptr, dest_array);
+
+        // Print String
+        printf("%s\n", dest_array);
+
+        // Calculate Length
+        int x = calcLength((char *) dest_array);
+        printf("Length of String: %d\n", x);
+
+        // Close File
+        printf("Closing File...\n");
+        fclose(ifptr);
 
     }
     // More than 1 Argument Given.
-    if (argc > 2){
+    else if (argc > 2){
         printf("Error: More than 1 Argument given.\n");
     }
 
-}
-
-void closeFile(FILE *ifptr){
-    fclose(ifptr);
 }
 
 int main(int argc, char *argv[]) {
@@ -53,13 +65,6 @@ int main(int argc, char *argv[]) {
     char *output[500];
 
     openFile(ifptr, argc, argv, (char *) output);
-
-    printf("%s", output);
-
-    int x = calcLength((char *) output);
-    printf("%d", x);
-
-    closeFile(ifptr);
 
     return 0;
 }
