@@ -1,6 +1,8 @@
+// Preprocessor Directives
 #include <stdio.h>
 #include <strings.h>
 
+// Macros
 #define ROW 100
 #define COL 100
 
@@ -24,7 +26,7 @@ void copyFromFile(FILE *ifptr, char* dest_array){
     strcpy(dest_array, output);
 }
 
-// Process the words
+// Process the words. Seperate into individual words and place each one in an index of a 2D String Array.
 void processWords(char *input, int len, char dest_array[ROW][COL]){
     int wordStart = 0;
     int numWord = 0;
@@ -42,7 +44,7 @@ void processWords(char *input, int len, char dest_array[ROW][COL]){
         }
     }
 
-    // After Loop, Temp will have all the seperate words
+    // After Loop, Temp will have all the seperate words. To check the 2D Array
     int size = sizeof(dest_array[0])/ sizeof(dest_array[0][0]);
     for (int x = 0 ; x < size; x++){
         printf("%s ", dest_array[x]);
@@ -75,7 +77,7 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
         int x = calcLength((char *) dest_array);
         printf("Length of String: %d\n", x);
 
-        // Seperate String into Array of Strings. Each index is a word.
+        // Seperate the ONE String into Array of Strings. Each index is a word.
         processWords((char *) dest_array, calcLength((char *) dest_array),temp);
 
         // Close File
