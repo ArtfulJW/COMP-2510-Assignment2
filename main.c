@@ -1,6 +1,7 @@
 // Preprocessor Directives
 #include <stdio.h>
 #include <strings.h>
+#include <stdbool.h>
 
 // Macros
 #define ROW 100
@@ -26,13 +27,41 @@ void copyFromFile(FILE *ifptr, char* dest_array){
     strcpy(dest_array, output);
 }
 
+// Check and replace words
+void replaceWord(char inputArr[ROW][COL]) {
+    // Boolean to check cases.
+    bool start = false;
+    bool end = false;
+    char target[100];
+    char replace[100];
+    char *checkReplace = NULL;
+    int size = sizeof(inputArr[0])/sizeof(inputArr[0][0]);
+
+    // User Input
+    printf("Enter a word to replace:");
+    scanf("%s", target);
+    printf("Replace %s with:", target);
+    scanf("%s", replace);
+
+    // Iterate. Check if word in 2D Array contains 'target'
+    for (int i = 0; i < size; i++){
+        checkReplace = strstr(inputArr[i], target);
+        if (checkReplace != NULL){
+            // 'target' is in the word, thus FOUR cases - target is either at the start, middle, end, or is already target.
+            printf("FOUND");
+            
+        }
+        checkReplace = NULL;
+    }
+}
+
 // Process the words. Seperate into individual words and place each one in an index of a 2D String Array.
 void processWords(char *input, int len, char dest_array[ROW][COL]){
     int wordStart = 0;
     int numWord = 0;
 
     for (int i = 0; i <= len; i++){
-        if(input[i] == ' '  || i == len){
+        if (input[i] == ' '  || i == len || input[i] == '\n'){
             // Iterate through the word.
             for (int y = wordStart; y < i; y++){
                 strncat(dest_array[numWord], &input[y],1);
@@ -47,9 +76,9 @@ void processWords(char *input, int len, char dest_array[ROW][COL]){
     // After Loop, Temp will have all the seperate words. To check the 2D Array
     int size = sizeof(dest_array[0])/ sizeof(dest_array[0][0]);
     for (int x = 0 ; x < size; x++){
-        printf("%s ", dest_array[x]);
+        printf("|%s|", dest_array[x]);
     }
-
+    printf("\n");
 }
 
 // Checks and Opens File
@@ -77,8 +106,11 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
         int x = calcLength((char *) dest_array);
         printf("Length of String: %d\n", x);
 
-        // Seperate the ONE String into Array of Strings. Each index is a word.
+        // Seperate paragraph into Array of Strings. Each index is a word.
         processWords((char *) dest_array, calcLength((char *) dest_array),temp);
+
+        // Iterate and change words according to User Input.
+        replaceWord(temp);
 
         // Close File
         printf("\nClosing File...\n");
