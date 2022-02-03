@@ -32,8 +32,10 @@ void replaceWord(char inputArr[ROW][COL]) {
     // Boolean to check cases.
     bool start = false;
     bool end = false;
+    bool changed = false;
     char target[100];
     char replace[100];
+    char temp[100];
     char *checkReplace = NULL;
     int size = sizeof(inputArr[0])/sizeof(inputArr[0][0]);
 
@@ -45,11 +47,24 @@ void replaceWord(char inputArr[ROW][COL]) {
 
     // Iterate. Check if word in 2D Array contains 'target'
     for (int i = 0; i < size; i++){
+
+        // Check for word
         checkReplace = strstr(inputArr[i], target);
         if (checkReplace != NULL){
-            // 'target' is in the word, thus FOUR cases - target is either at the start, middle, end, or is already target.
-            printf("FOUND");
-            
+
+            // 'target' is in the word, thus THREE cases - target is either at the start, middle, end.
+            printf("FOUND: %s, %d\n", checkReplace,i);
+
+            if(inputArr[i][0] == target[0]){
+                printf("%c = %c\n",inputArr[i][0], target[0]);
+                printf("First Letter Same\n");
+                start = true;
+            }
+            if(inputArr[i][strlen(inputArr[i])-1] == target[strlen(target)-1]){
+                printf("%c = %c\n",inputArr[i][strlen(inputArr[i])-1], target[strlen(target)-1]);
+                printf("Last Letter Same\n");
+                end = true;
+            }
         }
         checkReplace = NULL;
     }
