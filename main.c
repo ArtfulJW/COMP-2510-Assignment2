@@ -32,10 +32,10 @@ void replaceWord(char inputArr[ROW][COL]) {
     // Boolean to check cases.
     bool start = false;
     bool end = false;
-    bool changed = false;
     char target[100];
     char replace[100];
-    char temp[100];
+    char temp[100] = {0};
+    char zero[100] = {0};
     char *checkReplace = NULL;
     int size = sizeof(inputArr[0])/sizeof(inputArr[0][0]);
 
@@ -52,8 +52,8 @@ void replaceWord(char inputArr[ROW][COL]) {
         checkReplace = strstr(inputArr[i], target);
         if (checkReplace != NULL){
 
-            // 'target' is in the word, thus THREE cases - target is either at the start, middle, end.
-            printf("FOUND: %s, %d\n", checkReplace,i);
+            // 'target' is in the word, thus FOUR cases - target is either at the start, middle, end, or is target already.
+            printf("FOUND: %s, %d\n", inputArr[i],i);
 
             if(inputArr[i][0] == target[0]){
                 printf("%c = %c\n",inputArr[i][0], target[0]);
@@ -65,8 +65,71 @@ void replaceWord(char inputArr[ROW][COL]) {
                 printf("Last Letter Same\n");
                 end = true;
             }
+
+            if (start && !end) {
+                // target at start
+                printf("Target at start\n");
+                // Target has been replace
+                strcpy(temp,replace);
+                // Concate rest of word.
+                for(int x = 0; x < strlen(inputArr[i]); x++){
+                    if(x >= strlen(target)){
+                        strncat(temp,&inputArr[i][x],1);
+                    }
+                }
+                // Overwrite Index with new word
+                strcpy(inputArr[i], temp);
+                printf("%s\n", inputArr[i]);
+            } else if (!start && end) {
+
+                // target at end
+                printf("Target at end\n");
+                int length = (int)(strlen(inputArr[i]) - strlen(target));
+                // Iterate to target
+                for (int x = 0; x < length; x++){
+                    strncat(temp,&inputArr[i][x],1);
+                }
+                // Append replace
+                strcat(temp,replace);
+                // Overwrite Index with new word
+                strcpy(inputArr[i], temp);
+                printf("%s\n", inputArr[i]);
+                // Zero out temp Array
+                strcpy(temp,zero);
+            } else {
+                // target is in middle or word is already target
+                if(strlen(target) == strlen(inputArr[i])){
+                    printf("Word is target\n");
+                    strcpy(inputArr[i],replace);
+                    printf("%s\n", inputArr[i]);
+                } else {
+                    printf("Target in middle\n");
+                    int startlength = (int)(checkReplace - inputArr[i]);
+                    // Iterate to target
+                    for (int x = 0; x < startlength; x++){
+                        strncat(temp,&inputArr[i][x],1);
+                    }
+                    // Append Replace
+                    strcat(temp,replace);
+                    // Concate rest of word.
+                    int endlength = (int)(strlen(inputArr[i]) - startlength);
+                    for(int x = 0; x < strlen(inputArr[i]); x++){
+                        if(x > (startlength + strlen(replace)+1)){
+                            strncat(temp,&inputArr[i][x],1);
+                        }
+                    }
+                    // Overwrite Index with new word
+                    strcpy(inputArr[i], temp);
+                    printf("%s\n", inputArr[i]);
+                    // Zero out temp Array
+                    strcpy(temp,zero);
+                }
+            }
+
         }
         checkReplace = NULL;
+        start = false;
+        end = false;
     }
 }
 
@@ -87,13 +150,6 @@ void processWords(char *input, int len, char dest_array[ROW][COL]){
             wordStart = i+1;
         }
     }
-
-    // After Loop, Temp will have all the seperate words. To check the 2D Array
-    int size = sizeof(dest_array[0])/ sizeof(dest_array[0][0]);
-    for (int x = 0 ; x < size; x++){
-        printf("|%s|", dest_array[x]);
-    }
-    printf("\n");
 }
 
 // Checks and Opens File
@@ -126,6 +182,13 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
 
         // Iterate and change words according to User Input.
         replaceWord(temp);
+
+        // After Loop, Temp will have all the seperate words. To check the 2D Array
+        int size = sizeof(temp[0])/ sizeof(temp[0][0]);
+        for (int i = 0 ; i < size; i++){
+            printf("|%s|", temp[i]);
+        }
+        printf("\n");
 
         // Close File
         printf("\nClosing File...\n");
