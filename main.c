@@ -53,16 +53,12 @@ void replaceWord(char inputArr[ROW][COL]) {
         if (checkReplace != NULL){
 
             // 'target' is in the word, thus FOUR cases - target is either at the start, middle, end, or is target already.
-            printf("FOUND: %s, %d\n", inputArr[i],i);
+            printf("FOUND: '%s', INDEX: %d\n", inputArr[i],i);
 
             if(inputArr[i][0] == target[0]){
-                printf("%c = %c\n",inputArr[i][0], target[0]);
-                printf("First Letter Same\n");
                 start = true;
             }
             if(inputArr[i][strlen(inputArr[i])-1] == target[strlen(target)-1]){
-                printf("%c = %c\n",inputArr[i][strlen(inputArr[i])-1], target[strlen(target)-1]);
-                printf("Last Letter Same\n");
                 end = true;
             }
 
@@ -79,7 +75,6 @@ void replaceWord(char inputArr[ROW][COL]) {
                 }
                 // Overwrite Index with new word
                 strcpy(inputArr[i], temp);
-                printf("%s\n", inputArr[i]);
             } else if (!start && end) {
 
                 // target at end
@@ -93,7 +88,6 @@ void replaceWord(char inputArr[ROW][COL]) {
                 strcat(temp,replace);
                 // Overwrite Index with new word
                 strcpy(inputArr[i], temp);
-                printf("%s\n", inputArr[i]);
                 // Zero out temp Array
                 strcpy(temp,zero);
             } else {
@@ -101,7 +95,6 @@ void replaceWord(char inputArr[ROW][COL]) {
                 if(strlen(target) == strlen(inputArr[i])){
                     printf("Word is target\n");
                     strcpy(inputArr[i],replace);
-                    printf("%s\n", inputArr[i]);
                 } else {
                     printf("Target in middle\n");
                     int startlength = (int)(checkReplace - inputArr[i]);
@@ -120,7 +113,6 @@ void replaceWord(char inputArr[ROW][COL]) {
                     }
                     // Overwrite Index with new word
                     strcpy(inputArr[i], temp);
-                    printf("%s\n", inputArr[i]);
                     // Zero out temp Array
                     strcpy(temp,zero);
                 }
@@ -166,47 +158,45 @@ void openFile(FILE *ifptr, int argc, char *argv[], char *dest_array){
         printf("Opening File...\n");
         ifptr = fopen("input.txt","r");
 
-        // Copy File Contents
-        printf("Copying File...\n");
-        copyFromFile(ifptr, dest_array);
+        if(ifptr == NULL){
+            printf("Error, cannot open file.\n");
+        } else {
 
-        // Print String
-        printf("%s\n", dest_array);
+            // Copy File Contents
+            printf("Copying File...\n");
+            copyFromFile(ifptr, dest_array);
 
-        // Calculate Length
-        int x = calcLength((char *) dest_array);
-        printf("Length of String: %d\n", x);
+            // Seperate paragraph into Array of Strings. Each index is a word.
+            processWords((char *) dest_array, calcLength((char *) dest_array), temp);
 
-        // Seperate paragraph into Array of Strings. Each index is a word.
-        processWords((char *) dest_array, calcLength((char *) dest_array),temp);
+            // Iterate and change words according to User Input.
+            replaceWord(temp);
 
-        // Iterate and change words according to User Input.
-        replaceWord(temp);
+            // Close Input File
+            printf("\nClosing File...\n");
+            fclose(ifptr);
 
-        // After Loop, Temp will have all the seperate words. To check the 2D Array
-        int size = sizeof(temp[0])/ sizeof(temp[0][0]);
-        for (int i = 0 ; i < size; i++){
-            printf("|%s|", temp[i]);
+            // Delete Input File
+            remove("input.txt");
+
+            // Create new File
+            FILE *ofptr = fopen("input.txt", "w");
+            // Write Data to File
+            int size = sizeof(temp[0]) / sizeof(temp[0][0]);
+            for (int y = 0; y < size; y++) {
+                fputs(temp[y], ofptr);
+                fputs(" ", ofptr);
+            }
+            fclose(ofptr);
         }
-        printf("\n");
-
-        // Close File
-        printf("\nClosing File...\n");
-        fclose(ifptr);
-
     }
     // More than 1 Argument Given.
     else if (argc > 2){
         printf("Error: More than 1 Argument given.\n");
     }
-
 }
 
 int main(int argc, char *argv[]) {
-
-    // NO OPENING FILE IN MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // NO IF STATEMENT TO CHECK NUMBER OF ARGUMENTS!!!!!!!!!!!
-    // ONLY METHOD CALLS IN MAIN
 
     FILE *ifptr = {0};
     char *output[500];
